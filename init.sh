@@ -3,7 +3,7 @@
 sudo swapoff -a
 sudo kubeadm reset -f --cri-socket unix:///var/run/cri-dockerd.sock
 sudo rm -rf /etc/cni/net.d
-sudo kubeadm init --apiserver-advertise-address=132.227.122.29 --cri-socket unix:///var/run/cri-dockerd.sock  --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --apiserver-advertise-address=132.227.122.33 --cri-socket unix:///var/run/cri-dockerd.sock  --pod-network-cidr=10.244.0.0/16
 sleep 2
 sudo mkdir -p $HOME/.kube
 sleep 1
@@ -11,7 +11,7 @@ sudo \cp /etc/kubernetes/admin.conf $HOME/.kube/config
 sleep 1
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 sleep 2
-kubectl taint nodes 5g-bp-lab4 node-role.kubernetes.io/control-plane:NoSchedule-
+kubectl taint nodes 5g-bp-lab8 node-role.kubernetes.io/control-plane:NoSchedule-
 sleep 10
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 cd multus-cni
