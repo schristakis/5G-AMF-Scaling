@@ -111,4 +111,11 @@ The scaling should work as follows:
    - Split tha value of the UEs(from the number_of_ues.txt file) in half and put half of them in oai-ueransim.yaml and the other half in oai-ueransim2.yaml
    - oai-ueransim.yaml should be associated with the original AMF
    - oai-ueransim2.yaml should be associated with the newly deployed AMF2
-   - Very Important is to use the command: kubectl logs -f {amf-pod-name} in order to observe if the UEs have registered to AMF1 or AMF2. To get the {amf-pod-name} you have to execute as before kubectl get pods.
+   - Very Important is to use the command:
+```
+kubectl logs -f {amf-pod-name}
+```
+in order to observe if the UEs have registered to AMF1 or AMF2. To get the {amf-pod-name} you have to execute as before: 
+```
+kubectl get pods
+```
