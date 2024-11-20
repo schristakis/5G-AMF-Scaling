@@ -1,4 +1,4 @@
-# 5G-AMF-Scaling
+# Dynamic Scaling of AMF in 5G Networks Based on Number of UEs
 
 ## Contact
 
