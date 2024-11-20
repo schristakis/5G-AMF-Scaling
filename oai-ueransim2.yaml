@@ -55,7 +55,7 @@ spec:
         - name: NGAP_IP
           value: "172.21.70.143"
         - name: NGAP_PEER_IP
-          value: "TOBECONFIGURED" #AMF IP Address
+          value: "TOBECONFIGURED" #2nd AMF IP Address
         - name: NUMBER_OF_UE
           value: "1"
         - name: OP
