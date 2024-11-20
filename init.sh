@@ -14,6 +14,9 @@ sleep 2
 kubectl taint nodes 5g-bp-lab8 node-role.kubernetes.io/control-plane:NoSchedule-
 sleep 10
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+sleep 10
+git clone https://github.com/k8snetworkplumbingwg/multus-cni.git
+sleep 5
 cd multus-cni
 kubectl apply -f https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/master/deployments/multus-daemonset.yml
 cd ..
