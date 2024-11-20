@@ -36,10 +36,10 @@ Go inside the the folder that you have just cloned and study the files and more 
 ```
 cd 5g-amf-scaling/oai-5g-core
 ```
-In orde to deploy each function you have to execute the following command for each core network function:
+In order to deploy each function you have to execute the following command for each core network function:
 
 ```
-helm install {network_function_name} {path_of_network_function}
+helm install {network_function_name} {path_to_network_function}
 ```
 For example if you want to deploy the sql database  and then the NRF, UDR you execute:
 
@@ -49,7 +49,7 @@ helm install nrf oai-nrf/
 helm install udr oai-udr/
 ...
 ```
-It is very important that every after helm command you execute: kubectl get pods in order to see that the respective network function is running, before going to the next one.
+It is very important that every after helm command you execute: "kubectl get pods" in order to see that the respective network function is running, before going to the next one.
 
 In order to uninstall something with helm you execute the following command:
 ```
@@ -97,16 +97,18 @@ ping -I uesimtun0 8.8.8.8
 If the ping command works, it means that you have successfully deployed a 5G network and connected a UE to it.
 
 
-## Project goal
+## Project goal 
 
-As previously mentioned you will have to extend this architecture to connect multiple UEs in the network(hint: oai-ueransim.yaml file) and by doing so, you should be able to see multiple uesimtun* interfaces and not only one like in the example before. Then you will have to change the number of UEs for the values that are in the number_of_ues.txt file. Originally  your network will have only one AMF function, but if the number of UEs is high you will have to scale the AMF deployment to deal with the extra UEs.
+As previously mentioned you will have to extend this architecture to connect multiple UEs in the network (hint: oai-ueransim.yaml and oai-ueransim2.yaml file)s and by doing so, you should be able to see multiple uesimtun* interfaces and not only one like in the example before. Then you will have to deploy/undeploy a second AMF, based on the number of UEs that you will find in the number_of_ues.txt file. Originally  your network will have only one AMF function and one UERANSIM, but if the number of UEs is high you will have to deploy simultaniously the 2nd AMF2 (oai-amf2) and a second UERANSIM2(oai-ueransim2.yaml) to deal with the extra UEs.
 
-Hint: The files you will have to modify are the oai-ueransim.yaml (increase/decrease number of UEs) and manually scale the AMF intances.
-It is on you whether to create a script to monitor the number of UEs and scale the AMF instances accordingly.
+Hint: The files you will have to modify are the oai-ueransim.yaml and oai-ueransim2.yaml (increase/decrease number of UEs) and manually deploy the 2nd AMF.
 
 
 The scaling should work as follows:
 
-- if number_of_ues <= 5  --> 1 AMF instances
-- if number_of_ues 5 < number_of_ues <= 10  --> 2 AMF instances
-- if number_of_ues 10 < number_of_ues --> 3 AMF instances
+1) If total  number_of_ues <= 10  --> 1 AMF & 1 UERANSIM (original setup)
+2) If total number_of_ues > 10:
+   - Split tha value of the UEs(from the number_of_ues.txt file) in half and put half of them in oai-ueransim.yaml and the other half in oai-ueransim2.yaml
+   - oai-ueransim.yaml should be associated with the original AMF
+   - oai-ueransim2.yaml should be associated with the newly deployed AMF2
+   - Very Important is to use the command: kubectl logs -f {amf-pod-name} in order to observe if the UEs have registered to AMF1 or AMF2. To get the {amf-pod-name} you have to execute as before kubectl get pods.
